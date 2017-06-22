@@ -74,6 +74,7 @@ sig
     method input_depth : int
     method query_with_path_cond : Vine.exp -> bool
       -> (bool * Query_engine.sat_assign)
+    method query_condition : Vine.exp -> bool option -> int -> (bool * bool option) 
     method query_unique_value : Vine.exp -> Vine.typ -> int64 option
     method follow_or_random : bool 
     method query_with_pc_choice : Vine.exp -> bool -> int -> (unit -> bool)

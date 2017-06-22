@@ -267,6 +267,16 @@ struct
     method query_with_path_cond cond verbose =
       self#query_with_path_cond_wcache cond verbose true
 
+    method query_condition cond_e choice ident = 
+      dt#start_new_query_binary;
+      let b = match choice with 
+	| None -> self#extend_pc_random cond_e true ident 
+	| Some bit -> self#extend_pc_known cond_e true ident bit
+      in
+      let choices = dt#check_last_choices in
+      dt#count_query;
+      (b, choices)
+
     method private query_with_path_cond_wcache cond verbose with_cache =
       self#ensure_extra_conditions;
       Query_engine.query_extra_counter := 1 + self#get_depth;

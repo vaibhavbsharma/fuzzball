@@ -477,6 +477,8 @@ class virtual fragment_machine = object
   method virtual query_with_path_cond : Vine.exp -> bool
     -> (bool * Query_engine.sat_assign)
 
+  method virtual query_condition : Vine.exp -> bool option -> int -> (bool * bool option) 
+  
   method virtual match_input_var : string -> int option
 
   method virtual print_tree : out_channel -> unit
@@ -2606,6 +2608,9 @@ struct
     method query_with_path_cond (e:Vine.exp) (v:bool)
       : (bool * Query_engine.sat_assign) =
       (false, (Query_engine.ce_from_list []))
+    method query_condition (e:Vine.exp) (b:bool option) 
+	(i:int) : (bool * bool option) =
+      (false,None)
     method match_input_var (s:string) : int option = None
     method get_path_cond : Vine.exp list = []
     method on_missing_random : unit =
